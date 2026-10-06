@@ -1,3 +1,5 @@
+import { categories } from "./categories";
+
 // 📋 Products Data
 export const products = [
   // Perfumes
@@ -7,7 +9,8 @@ export const products = [
     name: "Luxury Perfume - Chance",
     price: 4500,
     compareAtPrice: 5500,
-    image: "/assets/images/products/perfume-1.png",
+    image:
+      "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop",
     rating: 4.8,
     reviewCount: 120,
     badge: "Best Seller",
@@ -22,7 +25,8 @@ export const products = [
     name: "Oud Wood Perfume",
     price: 5500,
     compareAtPrice: 7000,
-    image: "/assets/images/products/perfume-2.png",
+    image:
+      "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=400&h=400&fit=crop",
     rating: 4.9,
     reviewCount: 85,
     badge: "Best Seller",
@@ -37,7 +41,8 @@ export const products = [
     name: "Floral Eau De Parfum",
     price: 3800,
     compareAtPrice: null,
-    image: "/assets/images/products/perfume-3.png",
+    image:
+      "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&h=400&fit=crop",
     rating: 4.8,
     reviewCount: 60,
     badge: null,
@@ -54,7 +59,8 @@ export const products = [
     name: "Gold Plated Necklace Set",
     price: 3200,
     compareAtPrice: null,
-    image: "/assets/images/products/jewelry-1.png",
+    image:
+      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop",
     rating: 4.9,
     reviewCount: 200,
     badge: "New",
@@ -69,7 +75,8 @@ export const products = [
     name: "Rose Gold Earrings",
     price: 1800,
     compareAtPrice: null,
-    image: "/assets/images/products/jewelry-2.png",
+    image:
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&h=400&fit=crop",
     rating: 4.6,
     reviewCount: 75,
     badge: "New",
@@ -84,7 +91,8 @@ export const products = [
     name: "Diamond Stud Earrings",
     price: 4200,
     compareAtPrice: null,
-    image: "/assets/images/products/jewelry-3.png",
+    image:
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&h=400&fit=crop",
     rating: 4.7,
     reviewCount: 45,
     badge: null,
@@ -99,7 +107,8 @@ export const products = [
     name: "Pearl Pendant Necklace",
     price: 2600,
     compareAtPrice: 3400,
-    image: "/assets/images/products/jewelry-4.png",
+    image:
+      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&h=400&fit=crop",
     rating: 4.9,
     reviewCount: 30,
     badge: "Best Seller",
@@ -116,7 +125,8 @@ export const products = [
     name: "Vitamin C Skincare Set",
     price: 2800,
     compareAtPrice: 3500,
-    image: "/assets/images/products/skincare-1.png",
+    image:
+      "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=400&fit=crop",
     rating: 4.7,
     reviewCount: 90,
     badge: "Sale",
@@ -131,7 +141,8 @@ export const products = [
     name: "Hydrating Face Serum",
     price: 1500,
     compareAtPrice: 2000,
-    image: "/assets/images/products/skincare-2.png",
+    image:
+      "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&h=400&fit=crop",
     rating: 4.8,
     reviewCount: 110,
     badge: null,
@@ -146,7 +157,8 @@ export const products = [
     name: "Anti-Aging Night Cream",
     price: 2200,
     compareAtPrice: 2800,
-    image: "/assets/images/products/skincare-3.png",
+    image:
+      "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&h=400&fit=crop",
     rating: 4.6,
     reviewCount: 55,
     badge: "New",
@@ -163,7 +175,8 @@ export const products = [
     name: "Michael Kors Handbag",
     price: 6500,
     compareAtPrice: 8000,
-    image: "/assets/images/products/bag-1.png",
+    image:
+      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=400&fit=crop",
     rating: 4.9,
     reviewCount: 150,
     badge: null,
@@ -178,7 +191,8 @@ export const products = [
     name: "Luxury Leather Tote Bag",
     price: 7200,
     compareAtPrice: 9000,
-    image: "/assets/images/products/bag-2.png",
+    image:
+      "https://images.unsplash.com/photo-1591561954557-26941169b49e?w=400&h=400&fit=crop",
     rating: 4.8,
     reviewCount: 80,
     badge: "Sale",
@@ -189,17 +203,15 @@ export const products = [
   },
 ];
 
-// 🔍 Helper: Get products by category
+// 🔍 Helper Functions
 export const getProductsByCategory = (categorySlug) => {
   return products.filter((p) => p.category === categorySlug);
 };
 
-// 🔍 Helper: Get product by slug
 export const getProductBySlug = (slug) => {
   return products.find((p) => p.slug === slug);
 };
 
-// 🔍 Helper: Get category by slug
 export const getCategoryBySlug = (slug) => {
   return categories.find((c) => c.slug === slug);
 };

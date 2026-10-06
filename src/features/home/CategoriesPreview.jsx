@@ -16,37 +16,42 @@ const CategoriesPreview = () => {
       name: "Perfumes",
       href: "/category/perfumes",
       icon: Sparkles,
-      image: "/assets/images/categories/perfumes.png",
+      image:
+        "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop",
     },
     {
       name: "Jewelry",
       href: "/category/jewelry",
       icon: Gem,
-      image: "/assets/images/categories/jewelry.png",
+      image:
+        "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop",
     },
     {
       name: "Skincare",
       href: "/category/skincare",
       icon: Droplets,
-      image: "/assets/images/categories/skincare.png",
+      image:
+        "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=400&fit=crop",
     },
     {
       name: "Ladies Bags",
       href: "/category/bags",
       icon: ShoppingBag,
-      image: "/assets/images/categories/bags.png",
+      image:
+        "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=400&fit=crop",
     },
     {
       name: "Fragrances",
       href: "/category/fragrances",
       icon: FlaskConical,
-      image: "/assets/images/categories/fragrances.png",
+      image:
+        "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&h=400&fit=crop",
     },
     {
       name: "Luxury Items",
       href: "/category/luxury",
       icon: Crown,
-      image: "/assets/images/categories/luxury.png",
+      image: "https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=400&h=400&fit=crop",
     },
   ];
 
@@ -60,7 +65,6 @@ const CategoriesPreview = () => {
           <p className="text-secondary-600">Explore our premium collections</p>
         </div>
 
-        {/* 📦 Grid — gap kam (gap-3) */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
           {categories.map((category) => {
             const Icon = category.icon;
@@ -70,8 +74,7 @@ const CategoriesPreview = () => {
                 href={category.href}
                 className="group block"
               >
-                <div className="bg-white rounded-xl overflow-hidden border border-gray-100 hover:border-primary-200 hover:shadow-medium transition-all duration-300 hover:-translate-y-1">
-                  {/* 🖼️ Image Area */}
+                <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-soft hover:shadow-medium transition-all duration-300 hover:-translate-y-1">
                   <div className="relative aspect-square bg-[#faf7f2] overflow-hidden">
                     <Image
                       src={category.image}
@@ -82,12 +85,11 @@ const CategoriesPreview = () => {
                     />
                   </div>
 
-                  {/* 🏷️ Pink Strip — Icon + Label */}
-                  <div className="flex items-center gap-2 px-3 py-3 bg-[#fdf5f7]">
-                    <div className="w-7 h-7 rounded-full bg-primary-500 flex items-center justify-center flex-shrink-0">
-                      <Icon className="w-3.5 h-3.5 text-white" strokeWidth={2.5} />
+                  <div className="flex items-center gap-2 px-3 py-3.5 bg-[#fdf5f7]">
+                    <div className="w-8 h-8 rounded-full bg-primary-500 flex items-center justify-center flex-shrink-0 shadow-sm">
+                      <Icon className="w-4 h-4 text-white" strokeWidth={2.5} />
                     </div>
-                    <span className="text-sm font-bold text-secondary-900 leading-tight truncate">
+                    <span className="text-sm font-bold text-secondary-900 leading-tight">
                       {category.name}
                     </span>
                   </div>
