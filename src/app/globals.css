@@ -124,3 +124,24 @@ a {
 button, .no-select {
   user-select: none;
 }
+
+/* ================================
+   📜 SIDEBAR SCROLLBAR (Custom)
+   ================================ */
+.sidebar-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: #f8f8f8;
+  border-radius: 10px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: #d99a27;
+  border-radius: 10px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background: #bc7a1e;
+}

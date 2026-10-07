@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import {
   Search,
   ShoppingBag,
@@ -19,9 +20,11 @@ import {
   ChevronDown,
 } from "lucide-react";
 import PageContainer from "./PageContainer";
+import SearchBar from "@/features/navigation/SearchBar";
 import { categories } from "@/lib/categories";
 
 const Header = () => {
+  const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -37,6 +40,13 @@ const Header = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // 🔒 Close dropdown on route change
+  useEffect(() => {
+    setIsCategoriesOpen(false);
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
+
+  // 📋 Nav Links
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Shop", href: "/shop" },
@@ -47,7 +57,7 @@ const Header = () => {
     { name: "About Us", href: "/about" },
   ];
 
-  // 🎨 Icon Map
+  // 🎨 Icon Map for Categories
   const iconMap = {
     Sparkles: Sparkles,
     Gem: Gem,
@@ -55,6 +65,12 @@ const Header = () => {
     ShoppingBag: ShoppingBag,
     FlaskConical: FlaskConical,
     Crown: Crown,
+  };
+
+  // ✅ Active Link Check
+  const isActive = (href) => {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
   };
 
   return (
@@ -81,39 +97,36 @@ const Header = () => {
             </div>
           </Link>
 
-          {/* 🔍 Search */}
-          <div className="hidden md:flex flex-1 max-w-2xl">
-            <div className="relative w-full flex">
-              <input
-                type="text"
-                placeholder="Search for products..."
-                className="w-full px-5 py-3 border-2 border-gray-200 rounded-l-full focus:outline-none focus:border-primary-500 transition-colors"
-              />
-              <button className="bg-secondary-900 hover:bg-primary-500 text-white px-8 rounded-r-full font-medium transition-colors">
-                Search
-              </button>
-            </div>
+          {/* 🔍 Search (Desktop) */}
+          <div className="hidden md:flex flex-1 justify-center px-4">
+            <SearchBar />
           </div>
 
-          {/* 🎯 Icons */}
+          {/* 🎯 Right Icons */}
           <div className="flex items-center gap-2">
+            {/* Account */}
             <Link
               href="/account"
               className="hidden sm:flex p-2 hover:bg-primary-50 rounded-full transition-colors"
+              aria-label="Account"
             >
               <User className="w-5 h-5 text-secondary-800" />
             </Link>
 
+            {/* Wishlist */}
             <Link
               href="/wishlist"
-              className="hidden sm:flex p-2 hover:bg-primary-50 rounded-full transition-colors"
+              className="hidden sm:flex p-2 hover:bg-primary-50 rounded-full transition-colors relative"
+              aria-label="Wishlist"
             >
               <Heart className="w-5 h-5 text-secondary-800" />
             </Link>
 
+            {/* Cart */}
             <Link
               href="/cart"
               className="p-2 hover:bg-primary-50 rounded-full transition-colors relative"
+              aria-label="Cart"
             >
               <ShoppingBag className="w-6 h-6 text-secondary-800" />
               <span className="absolute -top-1 -right-1 bg-primary-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
@@ -121,9 +134,11 @@ const Header = () => {
               </span>
             </Link>
 
+            {/* Mobile Menu Button */}
             <button
               className="lg:hidden p-2"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Menu"
             >
               {isMobileMenuOpen ? (
                 <X className="w-6 h-6" />
@@ -135,7 +150,7 @@ const Header = () => {
         </div>
       </PageContainer>
 
-      {/* 🔻 Bottom Row: All Categories Dropdown + Nav */}
+      {/* 🔻 Bottom Row: Categories + Nav */}
       <div className="border-t border-gray-100">
         <PageContainer>
           <div className="flex items-center justify-between py-3">
@@ -148,8 +163,9 @@ const Header = () => {
                 <LayoutGrid className="w-5 h-5" />
                 <span>All Categories</span>
                 <ChevronDown
-                  className={`w-4 h-4 transition-transform ${isCategoriesOpen ? "rotate-180" : ""
-                    }`}
+                  className={`w-4 h-4 transition-transform ${
+                    isCategoriesOpen ? "rotate-180" : ""
+                  }`}
                 />
               </button>
 
@@ -186,21 +202,24 @@ const Header = () => {
               )}
             </div>
 
-            {/* Nav Links */}
+            {/* 🧭 Desktop Nav Links */}
             <nav className="hidden lg:flex items-center gap-7">
-              {navLinks.map((link, index) => (
+              {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`text-secondary-800 hover:text-primary-600 font-medium transition-colors ${index === 0 ? "text-primary-600 border-b-2 border-primary-500" : ""
-                    }`}
+                  className={`font-medium transition-colors pb-1 ${
+                    isActive(link.href)
+                      ? "text-primary-600 border-b-2 border-primary-500"
+                      : "text-secondary-800 hover:text-primary-600"
+                  }`}
                 >
                   {link.name}
                 </Link>
               ))}
             </nav>
 
-            {/* Phone */}
+            {/* 📞 Phone */}
             <div className="hidden lg:flex items-center gap-2 text-secondary-800">
               <Phone className="w-5 h-5 text-primary-500" />
               <span className="font-medium">Call To +92 300 1234567</span>
@@ -214,18 +233,10 @@ const Header = () => {
         <div className="lg:hidden bg-white border-t border-gray-100 animate-fade-in">
           <PageContainer>
             <div className="py-4 space-y-4">
-              <div className="relative flex">
-                <input
-                  type="text"
-                  placeholder="Search products..."
-                  className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-l-full focus:outline-none focus:border-primary-500"
-                />
-                <button className="bg-secondary-900 text-white px-5 rounded-r-full">
-                  <Search className="w-5 h-5" />
-                </button>
-              </div>
+              {/* Mobile Search */}
+              <SearchBar mobile onClose={() => setIsMobileMenuOpen(false)} />
 
-              {/* Categories Mobile */}
+              {/* Categories (Mobile) */}
               <div>
                 <p className="text-xs font-bold text-secondary-400 uppercase tracking-wide mb-2">
                   Shop By Category
@@ -236,7 +247,7 @@ const Header = () => {
                       key={cat.id}
                       href={`/category/${cat.slug}`}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="px-4 py-3 bg-primary-50 text-primary-700 rounded-lg font-medium text-sm text-center"
+                      className="px-4 py-3 bg-primary-50 text-primary-700 rounded-lg font-medium text-sm text-center hover:bg-primary-100 transition-colors"
                     >
                       {cat.name}
                     </Link>
@@ -244,14 +255,18 @@ const Header = () => {
                 </div>
               </div>
 
-              {/* Nav Links Mobile */}
+              {/* Nav Links (Mobile) */}
               <nav className="flex flex-col gap-1 pt-2 border-t border-gray-100">
                 {navLinks.map((link) => (
                   <Link
                     key={link.name}
                     href={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="py-3 px-4 text-secondary-800 hover:bg-primary-50 hover:text-primary-600 rounded-lg font-medium transition-colors"
+                    className={`py-3 px-4 rounded-lg font-medium transition-colors ${
+                      isActive(link.href)
+                        ? "bg-primary-50 text-primary-600"
+                        : "text-secondary-800 hover:bg-primary-50 hover:text-primary-600"
+                    }`}
                   >
                     {link.name}
                   </Link>
